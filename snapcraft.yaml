@@ -93,7 +93,40 @@ parts:
     override-pull: |
       craftctl set version="$(/bin/date +%Y%m%d)"
       craftctl default
+    stage:
+      - -usr/lib/*/cryptsetup/libcryptsetup-token-ssh.so
+      - -usr/lib/*/libcryptsetup.so*
+      - -usr/sbin/cryptsetup
+      - -usr/sbin/cryptsetup-reencrypt
+      - -usr/sbin/cryptsetup-ssh
+      - -usr/sbin/integritysetup
+      - -usr/sbin/veritysetup
     override-prime: |
       craftctl default
       # ensure build-in tests are run
       cd ${CRAFT_PART_SRC} && make test TESTDIR=${CRAFT_PRIME}
+
+  cryptsetup:
+    source: https://github.com/chrisccoulson/cryptsetup.git
+    source-type: git
+    source-branch: ice-wip
+    plugin: autotools
+    autotools-configure-parameters:
+      - --host ${CRAFT_ARCH_TRIPLET}
+      - --prefix=/usr
+      - --libdir=/usr/lib/${CRAFT_ARCH_TRIPLET}
+    stage:
+      - -usr/include
+      - -usr/lib/*.la
+      - -usr/lib/*/*.la
+      - -usr/lib/*/pkgconfig
+      - -usr/lib/*/tmpfiles.d
+      - -usr/share
+
+build-packages:
+  - libblkid-dev
+  - libdevmapper-dev
+  - libjson-c-dev
+  - libpopt-dev
+  - libssh-dev
+  - uuid-dev
