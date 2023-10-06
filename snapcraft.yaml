@@ -63,3 +63,53 @@ parts:
       craftctl default
       # ensure build-in tests are run
       cd ${CRAFT_PART_SRC} && make test TESTDIR=${CRAFT_PRIME}
+    stage:
+      - -etc/deluser.conf
+      - -etc/adduser.conf
+      - -usr/bin/cloud-init*
+      - -usr/bin/console-conf
+      - -usr/bin/pdb3*
+      - -usr/bin/perl*
+      - -usr/bin/py*
+      - -usr/lib/arm-linux-gnueabihf
+      - -usr/lib/i386-linux-gnu
+      - -usr/lib/cloud-init
+      - -usr/lib/initramfs-tools
+      - -usr/lib/ld-linux-armhf.so.*
+      - -usr/lib/ld-linux.so.*
+      - -usr/lib/*/perl
+      - -usr/lib/*/perl-base
+      - -usr/lib/*/python*
+      - -usr/lib/python*
+      - -usr/lib/systemd/system/cloud-*
+      - -usr/lib/systemd/system-generators/cloud-init-generator
+      - -usr/lib/udev/hwdb.d
+      - -usr/lib/valgrind
+      - -usr/sbin/addgroup
+      - -usr/sbin/adduser
+      - -usr/sbin/delgroup
+      - -usr/sbin/deluser
+      - -usr/sbin/netplan
+      - -usr/share/adduser
+      - -usr/share/applications/python*
+      - -usr/share/apport/package-hooks/cloud-init.py
+      - -usr/share/bash-completion/completions/cloud-init
+      - -usr/share/bash-completion/completions/micropython
+      - -usr/share/bash-completion/completions/perl*
+      - -usr/share/bash-completion/completions/py*
+      - -usr/share/bash-completion/helpers/perl*
+      - -usr/share/bash-completion/helpers/python*
+      - -usr/share/binfmts/python*
+      - -usr/share/doc
+      - -usr/share/doc-base
+      - -usr/share/gcc-*
+      - -usr/share/initramfs-tools
+      - -usr/share/keyrings/ubuntu-cloudimage*
+      - -usr/share/lintian
+      - -usr/share/man
+      - -usr/share/perl*
+      - -usr/share/pixmaps/python*
+      - -usr/share/python*
+      - -usr/share/X11
+      - -var/lib/python*
+      - -var/lib/systemd/deb-systemd-helper-enabled/cloud-*
