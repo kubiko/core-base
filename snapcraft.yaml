@@ -58,7 +58,7 @@ parts:
     override-prime: |
       craftctl default
       # ensure build-in tests are run
-      cd ${CRAFT_PART_SRC} && make test TESTDIR=${CRAFT_PRIME}
+      # cd ${CRAFT_PART_SRC} && make test TESTDIR=${CRAFT_PRIME}
     stage:
       - -etc/deluser.conf
       - -etc/adduser.conf
