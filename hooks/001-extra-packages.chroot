@@ -60,10 +60,6 @@ jdVw2j6diVag+TBwXXX/pBCBMFvUHJph5afKSfnrIuDk6yzCV8TaGAer
 -----END PGP PUBLIC KEY BLOCK-----
 EOF
 
-cat <<EOF >/etc/apt/sources.list.d/local-packages.list
-deb [trusted=yes] file:/install-data/local-debs ./
-EOF
-
 # This gives higher priority to local-debs repository
 cat <<EOF >/etc/apt/preferences
 Package: *
@@ -138,14 +134,6 @@ PACKAGES=(
     vim-tiny
     wpasupplicant
     locales
-)
-
-# Locally built packages
-PACKAGES+=(
-    console-conf
-    probert-common
-    probert-network
-    subiquitycore
 )
 
 case "$(dpkg --print-architecture)" in
