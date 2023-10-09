@@ -59,6 +59,10 @@ parts:
     override-pull: |
       craftctl set version="$(/bin/date +%Y%m%d)"
       craftctl default
+    override-build: |
+      craftctl default
+      # create empty var/lib/console-conf
+      mkdir -p ${CRAFT_PART_INSTALL}/var/lib/console-conf
     override-prime: |
       craftctl default
       # ensure build-in tests are run
