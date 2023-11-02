@@ -44,6 +44,34 @@ parts:
     source-type: git
     organize:
       ubuntu-core: usr/share/plymouth/themes/ubuntu-core
+  netplan:
+    after:
+      - bootstrap
+    plugin: nil
+    stage-packages:
+      - libnetplan0
+      - libpython3-stdlib
+      - libpython3.10-minimal
+      - libpython3.10-stdlib
+      - netplan.io
+      - python3.10-minimal
+      - python3-minimal
+      - python3
+      - python3-dbus
+      - python3-netifaces
+      - python3-yaml
+    override-build: |
+      craftctl default
+      install -D -m 755 \
+              ${CRAFT_PROJECT_DIR}/static/usr/sbin/netplan \
+              ${CRAFT_PART_INSTALL}/usr/sbin/netplan
+    organize:
+      usr/bin/p*: usr/share/netplan/bin/
+      usr/lib/python3/: usr/share/netplan/lib/python3/
+      usr/lib/python3.10/: usr/share/netplan/lib/python3.10/
+    stage:
+      - usr/sbin/netplan
+      - usr/share/netplan
   bootstrap:
     after:
       - base
@@ -107,6 +135,7 @@ parts:
       - -usr/share/keyrings/ubuntu-cloudimage*
       - -usr/share/lintian
       - -usr/share/man
+      - -usr/share/netplan
       - -usr/share/perl*
       - -usr/share/pixmaps/python*
       - -usr/share/python*
