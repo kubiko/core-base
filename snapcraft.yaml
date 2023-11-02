@@ -72,6 +72,10 @@ parts:
     stage:
       - usr/sbin/netplan
       - usr/share/netplan
+  cloud-init:
+    plugin: dump
+    source: cloud-init
+    source-type: local
   bootstrap:
     after:
       - base
