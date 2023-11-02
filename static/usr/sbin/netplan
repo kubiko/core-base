@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# if we are running in snap context, call netplan over dbus
+if [ -n "${SNAP}" ]; then
+  if [ ! "${1}" = "apply" ]  && [ ! "${1}" = "generate" ]; then
+    echo "command ${1} not supported in snap confinement"
+    exit 1
+  fi
+  # TODO: maybe check if we are inside a classic snap and don't do
+  # this if we are in a classic snap?
+  if [ -z "$(which busctl)" ]; then
+    echo "missing busctl utility"
+    exit 1
+  fi
+  exec busctl call --quiet \
+              --system \
+              "io.netplan.Netplan" \
+              "/io/netplan/Netplan" \
+              "io.netplan.Netplan" \
+              "${1}"
+else
+  export PYTHONHOME="/usr/share/netplan"
+  export PYTHON="${PYTHONHOME}/bin/python3"
+  lib_python3="${PYTHONHOME}/lib/python3"
+  export PYTHONPATH="${lib_python3}:${lib_python3}.10:${lib_python3}.11:${lib_python3}.12:${lib_python3}.10/lib-dynload"
+  export PYTHONIOENCODING="utf-8"
+  exec ${PYTHON} /usr/share/netplan/netplan.script $@
+fi
