@@ -3,15 +3,17 @@ Description=Apply the settings specified in cloud-config
 After=network-online.target cloud-config.target
 After=snapd.seeded.service
 Wants=network-online.target cloud-config.target
+ConditionPathExists=!/etc/cloud/cloud-init.disabled
 ConditionPathExists=/snap/cloud-init
 RequiresMountsFor=/snap/cloud-init/current
+ConditionKernelCommandLine=!cloud-init=disabled
+ConditionEnvironment=!KERNEL_CMDLINE=cloud-init=disabled
 
 [Service]
 Type=oneshot
-ExecStart=/snap/cloud-init/current/usr/bin/cloud-init modules --mode=config
+ExecStart=/usr/bin/cloud-init modules --mode=config
 RemainAfterExit=yes
 TimeoutSec=0
-EnvironmentFile=/snap/cloud-init/current/etc/cloud/environment
 
 # Output needs to appear in instance console output
 StandardOutput=journal+console

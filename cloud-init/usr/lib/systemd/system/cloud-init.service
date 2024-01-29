@@ -14,15 +14,17 @@ Before=sysinit.target
 Before=shutdown.target
 Conflicts=shutdown.target
 Before=systemd-user-sessions.service
+ConditionPathExists=!/etc/cloud/cloud-init.disabled
 ConditionPathExists=/snap/cloud-init
 RequiresMountsFor=/snap/cloud-init/current
+ConditionKernelCommandLine=!cloud-init=disabled
+ConditionEnvironment=!KERNEL_CMDLINE=cloud-init=disabled
 
 [Service]
 Type=oneshot
-ExecStart=/snap/cloud-init/current/usr/bin/cloud-init init
+ExecStart=/usr/bin/cloud-init init
 RemainAfterExit=yes
 TimeoutSec=0
-EnvironmentFile=/snap/cloud-init/current/etc/cloud/environment
 
 # Output needs to appear in instance console output
 StandardOutput=journal+console

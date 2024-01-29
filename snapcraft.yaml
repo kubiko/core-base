@@ -101,6 +101,7 @@ parts:
       - -etc/deluser.conf
       - -etc/adduser.conf
       - -usr/bin/cloud-init*
+      - -usr/bin/cloud-id
       - -usr/bin/console-conf
       - -usr/bin/pdb3*
       - -usr/bin/perl*

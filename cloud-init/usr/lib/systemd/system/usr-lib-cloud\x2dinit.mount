@@ -1,0 +1,12 @@
+[Unit]
+ConditionPathIsMountPoint=/snap/cloud-init/current
+Before=cloud-config.service
+
+[Mount]
+What=/snap/cloud-init/current/usr/lib/cloud-init
+Where=/usr/lib/cloud-init
+Options=bind
+Type=none
+
+[Install]
+WantedBy=cloud-init.target
